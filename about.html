@@ -7,14 +7,19 @@
   <link rel="stylesheet" href="style/global.css">
   <style>
     *{box-sizing:border-box;margin:0;padding:0;}
-
-    /* PAGE — fixed height, no scroll */
     html,body{
-      height:100%;overflow:hidden;
+      height:100%;
       font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
       background:#fff;color:#000;
     }
-    .page{height:100vh;display:flex;flex-direction:column;}
+
+    /* desktop: fixed height no-scroll */
+    @media (min-width: 769px) {
+      html,body { overflow: hidden; }
+      .page { height: 100vh; display: flex; flex-direction: column; }
+      .appearances-wrap { flex: 1; min-height: 0; }
+      .marquee-clip { height: 100%; }
+    }
 
     /* ── NAV ── */
     .nav{
@@ -22,6 +27,7 @@
       display:flex;justify-content:space-between;align-items:center;
       padding:20px 48px;
       border-bottom:.5px solid #e8e8e8;
+      background:#fff;
     }
     .nav-item{
       font-size:17px;font-weight:700;font-stretch:condensed;
@@ -33,7 +39,7 @@
     }
     .nav-item.active,.nav-item:hover{color:#ffaacc;}
 
-    /* ── ABOUT BODY — two columns ── */
+    /* ── ABOUT BODY ── */
     .about-body{
       flex-shrink:0;
       display:grid;
@@ -43,16 +49,12 @@
       border-bottom:.5px solid #e8e8e8;
       align-items:start;
     }
-
-    /* LEFT */
     .about-left{}
     .about-role-title{
       font-size:16px;font-weight:700;
       margin-bottom:24px;color:#000;letter-spacing:.01em;
     }
-
-    /* detail table — lines stop at 50% */
-    .detail-table{width:50%;min-width:320px;}
+    .detail-table{width:50%;min-width:280px;}
     .detail-row{
       display:grid;grid-template-columns:120px 1fr;
       border-bottom:.5px solid #e8e8e8;
@@ -61,62 +63,42 @@
     .detail-row:first-child{border-top:.5px solid #e8e8e8;}
     .detail-label{font-size:12px;color:#a09e9e;letter-spacing:.03em;}
     .detail-value{font-size:12px;font-weight:700;color:#615c5c;line-height:1.55;}
-
-    /* bio */
     .about-bio{
       font-size:12px;color:#a09e9e;line-height:1.7;
-      margin-top:20px;max-width:600px;
-      font-style:italic;
+      margin-top:20px;max-width:600px;font-style:italic;
     }
-
-    /* RIGHT — photo 3x4, no tape */
-    .about-photo-col{
-      display:flex;justify-content:flex-end;
-      padding-top:0;
-    }
+    .about-photo-col{display:flex;justify-content:flex-end;}
     .about-photo{
-      width:175px;
-      aspect-ratio:3/4;
-      object-fit:cover;object-position:top;
-      display:block;
+      width:175px;aspect-ratio:3/4;
+      object-fit:cover;object-position:top;display:block;
     }
 
     /* ── APPEARANCES ── */
     .appearances-wrap{
-      flex:1;min-height:0;
       display:flex;flex-direction:column;
       padding:28px 0 0;
     }
     .appearances-title{
       font-size:16px;font-weight:700;
       padding:0 48px;margin-bottom:20px;
-      flex-shrink:0;color:#000;letter-spacing:.01em;
+      flex-shrink:0;color:#000;
     }
-
-    /* marquee container */
     .marquee-clip{
-      flex:1;min-height:0;
-      overflow:hidden;
-      position:relative;
+      overflow:hidden;position:relative;
+      cursor:grab;user-select:none;
     }
-    /* the track holds original + clone side-by-side */
+    .marquee-clip.dragging{cursor:grabbing;}
     .marquee-track{
-      display:flex;
-      height:100%;
+      display:flex;height:100%;
       will-change:transform;
-      /* no transition — JS drives this */
     }
-    /* each card */
     .ap-card{
       flex-shrink:0;
-      /* 7 cards fill the viewport width */
       width:calc(100vw / 7);
       height:100%;
       position:relative;
-      display:block;
-      text-decoration:none;
-      background:#d9d9d9;
-      overflow:hidden;
+      display:block;text-decoration:none;
+      background:#d9d9d9;overflow:hidden;
     }
     .ap-card img{
       width:100%;height:100%;
@@ -131,17 +113,52 @@
     }
     .ap-title{
       position:absolute;bottom:10px;left:10px;right:10px;
-      z-index:2;
-      font-size:10px;font-weight:700;letter-spacing:.03em;
+      z-index:2;font-size:10px;font-weight:700;
       color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6);
       font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      html,body { overflow: auto; height: auto; }
+      .page { height: auto; }
+
+      .nav { padding: 14px 20px; }
+      .nav-item { font-size: 14px; }
+
+      .about-body {
+        grid-template-columns: 1fr;
+        padding: 24px 20px 24px;
+        gap: 24px;
+      }
+      .about-photo-col {
+        justify-content: flex-start;
+        order: -1;
+      }
+      .about-photo {
+        width: 100px;
+        aspect-ratio: 3/4;
+      }
+      .about-role-title { font-size: 14px; margin-bottom: 16px; }
+      .detail-table { width: 100%; min-width: unset; }
+      .detail-row { grid-template-columns: 100px 1fr; padding: 7px 0; }
+      .detail-label { font-size: 11px; }
+      .detail-value { font-size: 11px; }
+      .about-bio { font-size: 11px; margin-top: 16px; }
+
+      .appearances-wrap { padding: 24px 0 0; }
+      .appearances-title { font-size: 14px; padding: 0 20px; margin-bottom: 14px; }
+
+      .marquee-clip { height: 140px; overflow-x: auto; overflow-y: hidden; cursor: grab; }
+      .marquee-track { height: 140px; flex-wrap: nowrap; }
+      .ap-card { width: 140px; height: 140px; }
+      .ap-title { font-size: 9px; bottom: 8px; left: 8px; right: 8px; }
     }
   </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- NAV -->
   <nav class="nav">
     <a href="work.html" class="nav-item">WORK</a>
     <span style="flex:1;text-align:center;">
@@ -150,7 +167,6 @@
     <a href="contact.html" class="nav-item">CONTACT</a>
   </nav>
 
-  <!-- ABOUT BODY -->
   <div class="about-body">
     <div class="about-left">
       <h1 class="about-role-title">Creative Director / Visual Artist / Graphic Designer</h1>
@@ -181,12 +197,10 @@
     </div>
   </div>
 
-  <!-- APPEARANCES -->
   <div class="appearances-wrap">
     <h2 class="appearances-title">Appearances</h2>
     <div class="marquee-clip" id="mClip">
       <div class="marquee-track" id="mTrack">
-
         <a class="ap-card" href="https://irinashapiro.nl/fluid-rhythms.html" target="_blank" rel="noopener">
           <img src="https://irinashapiro.nl/images/2018_05_10_opensetFB_eventIMG_GREEN.jpg" alt="">
           <div class="ap-overlay"></div><div class="ap-title">Fluid Rhythms 2018 Amsterdam</div>
@@ -215,83 +229,52 @@
           <img src="https://booksfromthefuture.info/images/ps_30.jpg?crc=243601155" alt="">
           <div class="ap-overlay"></div><div class="ap-title">Books from the Future - London</div>
         </a>
-
-      </div><!-- end mTrack (original 7 cards) -->
-    </div><!-- end mClip -->
+      </div>
+    </div>
   </div>
 
-</div><!-- end page -->
-
+</div>
 <script>
-  var clip = document.getElementById("mClip");
-  var track = document.getElementById("mTrack");
-
-  /* measure original 7 cards width */
-  var origW = 0;
-  function measure(){ origW = track.scrollWidth; }
-
-  /* clone the 7 cards and append to same track — making 14 total */
-  function buildClone(){
-    measure();
+  var isMobile = window.innerWidth <= 768;
+  if(!isMobile){
+    var clip = document.getElementById("mClip");
+    var track = document.getElementById("mTrack");
+    var origW = 0;
+    function measure(){ origW = track.scrollWidth / 2; }
+    /* clone */
     var cards = Array.from(track.children);
-    cards.forEach(function(c){
-      var cl = c.cloneNode(true);
-      cl.setAttribute("aria-hidden","true");
-      cl.setAttribute("tabindex","-1");
-      track.appendChild(cl);
-    });
-  }
-  buildClone();
-
-  /* scroll state */
-  var offset = 0;
-  var vel = 0;
-  var raf = null;
-
-  function applyOffset(){
-    /* seamless loop: when we've scrolled one full set, reset */
-    if(origW > 0){
-      offset = ((offset % origW) + origW) % origW;
+    cards.forEach(function(c){ track.appendChild(c.cloneNode(true)); });
+    var offset = 0, vel = 0, raf = null;
+    function applyOffset(){
+      if(origW > 0) offset = ((offset % origW) + origW) % origW;
+      track.style.transform = "translateX(-" + offset + "px)";
     }
-    track.style.transform = "translateX(-" + offset + "px)";
+    function tick(){
+      if(Math.abs(vel) < 0.1){ vel=0; raf=null; return; }
+      offset += vel; vel *= 0.88;
+      applyOffset();
+      raf = requestAnimationFrame(tick);
+    }
+    window.addEventListener("wheel", function(e){
+      e.preventDefault();
+      vel += e.deltaY * 0.9;
+      if(!raf) raf = requestAnimationFrame(tick);
+    }, {passive:false});
+    var dragging=false, dragX=0, dragBase=0;
+    clip.addEventListener("mousedown", function(e){
+      dragging=true; dragX=e.clientX; dragBase=offset;
+      if(raf){ cancelAnimationFrame(raf); raf=null; vel=0; }
+      e.preventDefault();
+    });
+    window.addEventListener("mousemove", function(e){
+      if(!dragging) return;
+      offset = dragBase + (dragX - e.clientX);
+      applyOffset();
+    });
+    window.addEventListener("mouseup", function(){ dragging=false; });
+    window.addEventListener("load", function(){ measure(); });
+    window.addEventListener("resize", function(){ measure(); applyOffset(); });
   }
-
-  function tick(){
-    if(Math.abs(vel) < 0.1){ vel = 0; raf = null; return; }
-    offset += vel;
-    vel *= 0.88;
-    applyOffset();
-    raf = requestAnimationFrame(tick);
-  }
-
-  /* wheel drives the marquee — page stays still */
-  window.addEventListener("wheel", function(e){
-    e.preventDefault();
-    vel += e.deltaY * 0.9;
-    if(!raf) raf = requestAnimationFrame(tick);
-  }, {passive: false});
-
-  /* drag */
-  var dragging = false, dragX = 0, dragBase = 0;
-  clip.addEventListener("mousedown", function(e){
-    dragging = true;
-    dragX = e.clientX;
-    dragBase = offset;
-    if(raf){ cancelAnimationFrame(raf); raf = null; vel = 0; }
-    e.preventDefault();
-  });
-  window.addEventListener("mousemove", function(e){
-    if(!dragging) return;
-    offset = dragBase + (dragX - e.clientX);
-    applyOffset();
-  });
-  window.addEventListener("mouseup", function(){ dragging = false; });
-
-  /* re-measure on resize */
-  window.addEventListener("resize", function(){
-    measure();
-    applyOffset();
-  });
 </script>
 </body>
 </html>

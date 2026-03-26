@@ -67,6 +67,26 @@
     .detail-label{font-size:12px;color:#a09e9e;width:100px;flex-shrink:0;letter-spacing:.03em;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;}
     .detail-value{font-size:12px;font-weight:700;color:#615c5c;line-height:1.55;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;}
     .project-desc{font-size:12px;color:#a09e9e;line-height:1.65;margin-top:16px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .hero-nav { padding: 16px 20px; }
+      .hero-body { gap: 8px; }
+      .hero-name { font-size: 13px; letter-spacing: .12em; }
+      .hero-roles { font-size: 10px; letter-spacing: .1em; }
+
+      .sidebar { width: 100%; }
+      .sidebar-cat { font-size: 18px; padding: 0 20px; }
+      .sidebar-all { font-size: 18px; }
+
+      .sticky-nav-inner { padding: 14px 20px; }
+
+      .project-item { grid-template-columns: 1fr; }
+      .project-card-link { aspect-ratio: 16/9; }
+      .project-info { padding: 24px 20px 32px; }
+      .project-name { font-size: 32px; }
+      .see-more-btn { font-size: 9px; padding: 6px 12px; }
+    }
   </style>
 </head>
 <body>
