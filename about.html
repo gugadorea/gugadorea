@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Antonio Augusto Dorea</title>
+  <link rel="stylesheet" href="style/global.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+
+    /* PAGE — fixed height, no scroll */
+    html,body{
+      height:100%;overflow:hidden;
+      font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+      background:#fff;color:#000;
+    }
+    .page{height:100vh;display:flex;flex-direction:column;}
+
+    /* ── NAV ── */
+    .nav{
+      flex-shrink:0;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:20px 48px;
+      border-bottom:.5px solid #e8e8e8;
+    }
+    .nav-item{
+      font-size:17px;font-weight:700;font-stretch:condensed;
+      letter-spacing:.04em;text-transform:uppercase;
+      color:#000;text-decoration:none;
+      font-family:'Helvetica Neue Condensed','Arial Narrow','Helvetica Neue',Helvetica,Arial,sans-serif;
+      background:none;border:none;cursor:pointer;
+      transition:color .2s;padding:0;
+    }
+    .nav-item.active,.nav-item:hover{color:#ffaacc;}
+
+    /* ── ABOUT BODY — two columns ── */
+    .about-body{
+      flex-shrink:0;
+      display:grid;
+      grid-template-columns:1fr 175px;
+      gap:0;
+      padding:40px 48px 32px;
+      border-bottom:.5px solid #e8e8e8;
+      align-items:start;
+    }
+
+    /* LEFT */
+    .about-left{}
+    .about-role-title{
+      font-size:16px;font-weight:700;
+      margin-bottom:24px;color:#000;letter-spacing:.01em;
+    }
+
+    /* detail table — lines stop at 50% */
+    .detail-table{width:50%;min-width:320px;}
+    .detail-row{
+      display:grid;grid-template-columns:120px 1fr;
+      border-bottom:.5px solid #e8e8e8;
+      padding:9px 0;align-items:start;
+    }
+    .detail-row:first-child{border-top:.5px solid #e8e8e8;}
+    .detail-label{font-size:12px;color:#a09e9e;letter-spacing:.03em;}
+    .detail-value{font-size:12px;font-weight:700;color:#615c5c;line-height:1.55;}
+
+    /* bio */
+    .about-bio{
+      font-size:12px;color:#a09e9e;line-height:1.7;
+      margin-top:20px;max-width:600px;
+      font-style:italic;
+    }
+
+    /* RIGHT — photo 3x4, no tape */
+    .about-photo-col{
+      display:flex;justify-content:flex-end;
+      padding-top:0;
+    }
+    .about-photo{
+      width:175px;
+      aspect-ratio:3/4;
+      object-fit:cover;object-position:top;
+      display:block;
+    }
+
+    /* ── APPEARANCES ── */
+    .appearances-wrap{
+      flex:1;min-height:0;
+      display:flex;flex-direction:column;
+      padding:28px 0 0;
+    }
+    .appearances-title{
+      font-size:16px;font-weight:700;
+      padding:0 48px;margin-bottom:20px;
+      flex-shrink:0;color:#000;letter-spacing:.01em;
+    }
+
+    /* marquee container */
+    .marquee-clip{
+      flex:1;min-height:0;
+      overflow:hidden;
+      position:relative;
+    }
+    /* the track holds original + clone side-by-side */
+    .marquee-track{
+      display:flex;
+      height:100%;
+      will-change:transform;
+      /* no transition — JS drives this */
+    }
+    /* each card */
+    .ap-card{
+      flex-shrink:0;
+      /* 7 cards fill the viewport width */
+      width:calc(100vw / 7);
+      height:100%;
+      position:relative;
+      display:block;
+      text-decoration:none;
+      background:#d9d9d9;
+      overflow:hidden;
+    }
+    .ap-card img{
+      width:100%;height:100%;
+      object-fit:cover;display:block;
+      transition:transform .35s ease;
+    }
+    .ap-card:hover img{transform:scale(1.05);}
+    .ap-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(0,0,0,.6) 0%,rgba(0,0,0,0) 50%);
+      z-index:1;
+    }
+    .ap-title{
+      position:absolute;bottom:10px;left:10px;right:10px;
+      z-index:2;
+      font-size:10px;font-weight:700;letter-spacing:.03em;
+      color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6);
+      font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="work.html" class="nav-item">WORK</a>
+    <span style="flex:1;text-align:center;">
+      <a href="about.html" class="nav-item active">ABOUT</a>
+    </span>
+    <a href="contact.html" class="nav-item">CONTACT</a>
+  </nav>
+
+  <!-- ABOUT BODY -->
+  <div class="about-body">
+    <div class="about-left">
+      <h1 class="about-role-title">Creative Director / Visual Artist / Graphic Designer</h1>
+      <div class="detail-table">
+        <div class="detail-row">
+          <span class="detail-label">Category</span>
+          <span class="detail-value">Creative Director</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Services</span>
+          <span class="detail-value">
+            Art Direction<br>
+            Graphic Design<br>
+            Design Systems<br>
+            Visual Identity<br>
+            Branding
+          </span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Year</span>
+          <span class="detail-value">2026</span>
+        </div>
+      </div>
+      <p class="about-bio">"I work at the intersection of design and strategy, building coherent systems across brand, product, and communication &mdash; focused on direction and authorship, creating work that is not only expressive but structurally sound and sustainable. My practice is about synthesis: aligning creativity and business to shape ideas with clarity, identity, and longevity."</p>
+    </div>
+    <div class="about-photo-col">
+      <img class="about-photo" src="assets/images/foto-perfil.png" alt="Antonio Augusto Dorea">
+    </div>
+  </div>
+
+  <!-- APPEARANCES -->
+  <div class="appearances-wrap">
+    <h2 class="appearances-title">Appearances</h2>
+    <div class="marquee-clip" id="mClip">
+      <div class="marquee-track" id="mTrack">
+
+        <a class="ap-card" href="https://irinashapiro.nl/fluid-rhythms.html" target="_blank" rel="noopener">
+          <img src="https://irinashapiro.nl/images/2018_05_10_opensetFB_eventIMG_GREEN.jpg" alt="">
+          <div class="ap-overlay"></div><div class="ap-title">Fluid Rhythms 2018 Amsterdam</div>
+        </a>
+        <a class="ap-card" href="https://www.openset.nl/program.php" target="_blank" rel="noopener">
+          <img src="https://www.openset.nl/img/opensetlab/opensetlab-1.jpg" alt="">
+          <div class="ap-overlay"></div><div class="ap-title">Open Set - NL</div>
+        </a>
+        <a class="ap-card" href="https://180.camp/" target="_blank" rel="noopener">
+          <img src="assets/images/Captura de Tela 2026-03-26 as 05.39.30.png" alt="" onerror="this.style.display='none'">
+          <div class="ap-overlay"></div><div class="ap-title">180 Creative Camp</div>
+        </a>
+        <a class="ap-card" href="https://www.booooooom.com/2018/07/20/on-assignment-180-creative-camp-by-lorena-cao/" target="_blank" rel="noopener">
+          <img src="https://cdn.booooooom.com/wp-content/uploads/2018/07/Portfolio_Review_005.jpg" alt="">
+          <div class="ap-overlay"></div><div class="ap-title">Booooooom - 180 CC</div>
+        </a>
+        <a class="ap-card" href="https://www.canal180.pt/page/180-creative-camp/" target="_blank" rel="noopener">
+          <img src="https://img.bndlyr.com/nhjtx0kggg/_assets/nk4w2an5yxnjmkabrcvmw.jpg?fit=fill&w=800" alt="">
+          <div class="ap-overlay"></div><div class="ap-title">How come Abrantes?</div>
+        </a>
+        <a class="ap-card" href="https://www.youtube.com/watch?v=wwndcj5xn_Y" target="_blank" rel="noopener">
+          <img src="assets/images/Captura de Tela 2026-03-26 as 05.48.02.png" alt="" onerror="this.style.display='none'">
+          <div class="ap-overlay"></div><div class="ap-title">Some of us were looking at the stars</div>
+        </a>
+        <a class="ap-card" href="https://booksfromthefuture.info/" target="_blank" rel="noopener">
+          <img src="https://booksfromthefuture.info/images/ps_30.jpg?crc=243601155" alt="">
+          <div class="ap-overlay"></div><div class="ap-title">Books from the Future - London</div>
+        </a>
+
+      </div><!-- end mTrack (original 7 cards) -->
+    </div><!-- end mClip -->
+  </div>
+
+</div><!-- end page -->
+
+<script>
+  var clip = document.getElementById("mClip");
+  var track = document.getElementById("mTrack");
+
+  /* measure original 7 cards width */
+  var origW = 0;
+  function measure(){ origW = track.scrollWidth; }
+
+  /* clone the 7 cards and append to same track — making 14 total */
+  function buildClone(){
+    measure();
+    var cards = Array.from(track.children);
+    cards.forEach(function(c){
+      var cl = c.cloneNode(true);
+      cl.setAttribute("aria-hidden","true");
+      cl.setAttribute("tabindex","-1");
+      track.appendChild(cl);
+    });
+  }
+  buildClone();
+
+  /* scroll state */
+  var offset = 0;
+  var vel = 0;
+  var raf = null;
+
+  function applyOffset(){
+    /* seamless loop: when we've scrolled one full set, reset */
+    if(origW > 0){
+      offset = ((offset % origW) + origW) % origW;
+    }
+    track.style.transform = "translateX(-" + offset + "px)";
+  }
+
+  function tick(){
+    if(Math.abs(vel) < 0.1){ vel = 0; raf = null; return; }
+    offset += vel;
+    vel *= 0.88;
+    applyOffset();
+    raf = requestAnimationFrame(tick);
+  }
+
+  /* wheel drives the marquee — page stays still */
+  window.addEventListener("wheel", function(e){
+    e.preventDefault();
+    vel += e.deltaY * 0.9;
+    if(!raf) raf = requestAnimationFrame(tick);
+  }, {passive: false});
+
+  /* drag */
+  var dragging = false, dragX = 0, dragBase = 0;
+  clip.addEventListener("mousedown", function(e){
+    dragging = true;
+    dragX = e.clientX;
+    dragBase = offset;
+    if(raf){ cancelAnimationFrame(raf); raf = null; vel = 0; }
+    e.preventDefault();
+  });
+  window.addEventListener("mousemove", function(e){
+    if(!dragging) return;
+    offset = dragBase + (dragX - e.clientX);
+    applyOffset();
+  });
+  window.addEventListener("mouseup", function(){ dragging = false; });
+
+  /* re-measure on resize */
+  window.addEventListener("resize", function(){
+    measure();
+    applyOffset();
+  });
+</script>
+</body>
+</html>

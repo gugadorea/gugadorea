@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work — Antônio Augusto Dórea</title>
+  <link rel="stylesheet" href="style/global.css">
+</head>
+<body class="page-work">
+
+  <!-- ── NAV ── -->
+  <nav class="nav">
+    <button class="nav-btn is-active" id="navWork">WORK</button>
+    <span class="nav-center">
+      <a href="about.html" class="nav-link">ABOUT</a>
+    </span>
+    <span class="nav-right">
+      <a href="contact.html" class="nav-link">CONTACT</a>
+    </span>
+  </nav>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header"></div>
+    <div class="sidebar-cats">
+      <button class="sidebar-cat" data-cat="graphic-design">Graphic Design</button>
+      <button class="sidebar-cat" data-cat="creative-direction">Creative Direction</button>
+      <button class="sidebar-cat" data-cat="corporate">Corporate</button>
+    </div>
+    <div class="sidebar-footer">
+      <button class="sidebar-all is-active" data-cat="all">ALL</button>
+    </div>
+  </aside>
+
+  <!-- ── INFINITE SCROLL PROJECTS ── -->
+  <main class="page-main">
+    <div class="projects-container" id="projectsContainer">
+      <!-- Projects injected by JS -->
+    </div>
+  </main>
+
+  <script>
+    /* ── Project data ── */
+    const projects = [
+      {
+        id: 1,
+        title: 'Where Distance\nBecomes Texture',
+        category: 'Fashion Editorial',
+        cat: 'graphic-design',
+        services: 'Art Direction<br>Graphic Design<br>Script',
+        year: '2026',
+        desc: 'When distance becomes texture is a fashion image series that emphasizes balance, restraint and geometry. Every element — from the tailored collar to the smooth curve of the cap — was selected to express quiet authority. The minimal palette enhances the compositional tension while maintaining elegance through simplicity.'
+      },
+      {
+        id: 2,
+        title: 'The Quiet\nAuthority',
+        category: 'Editorial',
+        cat: 'creative-direction',
+        services: 'Creative Direction<br>Photography Direction',
+        year: '2025',
+        desc: 'A study in restraint — editorial series exploring monochromatic palettes, structured silhouettes, and the tension between stillness and movement.'
+      },
+      {
+        id: 3,
+        title: 'Monochrome\nStudy I',
+        category: 'Photography',
+        cat: 'graphic-design',
+        services: 'Graphic Design<br>Art Direction',
+        year: '2025',
+        desc: 'A systematic exploration of achromatic compositions, questioning the hierarchy of form over color.'
+      },
+      {
+        id: 4,
+        title: 'Brand Identity\nSeries',
+        category: 'Branding',
+        cat: 'corporate',
+        services: 'Brand Identity<br>Visual System',
+        year: '2024',
+        desc: 'Visual identity system built on geometric precision and typographic hierarchy — designed to communicate authority across all brand touchpoints.'
+      },
+      {
+        id: 5,
+        title: 'Editorial\nSeries II',
+        category: 'Editorial',
+        cat: 'creative-direction',
+        services: 'Creative Direction<br>Styling',
+        year: '2024',
+        desc: 'Second chapter of an ongoing editorial investigation into texture, weight, and the grammar of fashion image-making.'
+      }
+    ];
+
+    /* ── Build a single project DOM element ── */
+    function createProjectEl(p) {
+      const item = document.createElement('div');
+      item.className = 'project-item';
+      item.dataset.cat = p.cat;
+      item.innerHTML = `
+        <div class="project-placeholder"></div>
+        <div class="project-scroll-body">
+          <h2 class="project-title">${p.title.replace('\n', '<br>')}</h2>
+          <div>
+            <h3 class="project-details-heading">Project Details</h3>
+            <div class="detail-row">
+              <span class="detail-label">Category</span>
+              <span class="detail-value">${p.category}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Services</span>
+              <span class="detail-value">${p.services}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Year</span>
+              <span class="detail-value">${p.year}</span>
+            </div>
+            <p class="project-desc">${p.desc}</p>
+          </div>
+        </div>
+      `;
+      return item;
+    }
+
+    /* ── Render + infinite scroll setup ── */
+    let scrollHandler = null;
+
+    function renderProjects(list) {
+      const container = document.getElementById('projectsContainer');
+      container.innerHTML = '';
+
+      if (list.length === 0) return;
+
+      // Render originals
+      list.forEach(p => container.appendChild(createProjectEl(p)));
+
+      // Allow layout to settle, then clone
+      requestAnimationFrame(() => {
+        const origHeight = container.offsetHeight;
+
+        // Clone all originals and append
+        const originals = Array.from(container.children);
+        originals.forEach(el => container.appendChild(el.cloneNode(true)));
+
+        // Remove previous scroll handler
+        if (scrollHandler) window.removeEventListener('scroll', scrollHandler);
+
+        // Infinite scroll: when scrolled past originals, reset seamlessly
+        scrollHandler = () => {
+          const navH = 72;
+          const scrolled = window.scrollY;
+          if (scrolled >= origHeight) {
+            window.scrollTo({ top: scrolled - origHeight, behavior: 'instant' });
+          }
+        };
+        window.addEventListener('scroll', scrollHandler, { passive: true });
+      });
+    }
+
+    /* ── Sidebar hover ── */
+    const navWork = document.getElementById('navWork');
+    const sidebar = document.getElementById('sidebar');
+    let overWork = false, overSidebar = false;
+
+    function openSidebar() {
+      sidebar.classList.add('is-open');
+      document.body.classList.add('sidebar-open');
+    }
+    function closeSidebar() {
+      sidebar.classList.remove('is-open');
+      document.body.classList.remove('sidebar-open');
+    }
+
+    navWork.addEventListener('mouseenter', () => {
+      overWork = true;
+      openSidebar();
+    });
+    navWork.addEventListener('mouseleave', () => {
+      overWork = false;
+      setTimeout(() => { if (!overSidebar) closeSidebar(); }, 80);
+    });
+    sidebar.addEventListener('mouseenter', () => { overSidebar = true; });
+    sidebar.addEventListener('mouseleave', () => {
+      overSidebar = false;
+      if (!overWork) closeSidebar();
+    });
+
+    /* ── Category filter ── */
+    let activeFilter = 'all';
+
+    document.querySelectorAll('[data-cat]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-cat]').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        activeFilter = btn.dataset.cat;
+        const filtered = activeFilter === 'all'
+          ? projects
+          : projects.filter(p => p.cat === activeFilter);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        renderProjects(filtered);
+        closeSidebar();
+      });
+    });
+
+    /* ── Read URL param for initial filter ── */
+    const urlParams = new URLSearchParams(window.location.search);
+    const catParam = urlParams.get('cat');
+    if (catParam && catParam !== 'all') {
+      activeFilter = catParam;
+      const btn = document.querySelector(`[data-cat="${catParam}"]`);
+      if (btn) {
+        document.querySelectorAll('[data-cat]').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+      }
+      renderProjects(projects.filter(p => p.cat === catParam));
+    } else {
+      renderProjects(projects);
+    }
+  </script>
+
+</body>
+</html>

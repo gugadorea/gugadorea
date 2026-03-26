@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__vault__directory_tree",
+      "mcp__vault__list_directory_with_sizes",
+      "mcp__vault__list_directory",
+      "mcp__figma__get_metadata",
+      "mcp__figma__get_design_context",
+      "Bash(npx netlify-cli:*)",
+      "Bash(npx netlify-cli@latest status)",
+      "Bash(netlify status:*)",
+      "Bash(find /Users/hanuman -name fotoperfil2* -o -name 'fotoperfil 2*')"
+    ]
+  }
+}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Antonio Augusto Dorea</title>
+  <link rel="stylesheet" href="style/global.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;background:#fff;}
+    body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#000;display:flex;flex-direction:column;}
+
+    /* NAV — no fixed, no white bar, condensed */
+    .nav{
+      position:relative;background:transparent;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:16px 36px;border-bottom:.5px solid #e8e8e8;
+      flex-shrink:0;z-index:10;
+    }
+    .nav-link{
+      font-size:17px;font-weight:700;font-stretch:condensed;
+      letter-spacing:.02em;text-transform:uppercase;
+      color:#000;text-decoration:none;transition:color .2s;
+      font-family:'Helvetica Neue Condensed','Arial Narrow','Helvetica Neue',Helvetica,Arial,sans-serif;
+    }
+    .nav-link.active,.nav-link:hover{color:#ffaacc;}
+    .nav-btn{
+      font-size:17px;font-weight:700;font-stretch:condensed;
+      letter-spacing:.02em;text-transform:uppercase;
+      color:#000;background:none;border:none;cursor:pointer;
+      font-family:'Helvetica Neue Condensed','Arial Narrow','Helvetica Neue',Helvetica,Arial,sans-serif;
+      transition:color .2s;
+    }
+    .nav-btn:hover{color:#ffaacc;}
+
+    /* SIDEBAR */
+    .sidebar{position:fixed;top:0;left:0;width:34%;height:0;background:#ffaacc;z-index:100;overflow:hidden;transition:height .42s cubic-bezier(.4,0,.2,1);}
+    .sidebar.is-open{height:100%;}
+    .sidebar-inner{width:100%;height:100vh;display:flex;flex-direction:column;}
+    .sidebar-header{flex-shrink:0;padding:16px 36px;height:57px;display:flex;align-items:center;border-bottom:.5px solid rgba(0,0,0,.08);}
+    .sidebar-cats{flex:1;display:flex;flex-direction:column;}
+    .sidebar-cat{flex:1;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;background:none;border:none;border-bottom:.5px solid rgba(0,0,0,.1);cursor:pointer;color:#000;transition:background .15s,color .15s;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+    .sidebar-cat:last-child{border-bottom:none;}
+    .sidebar-cat:hover{background:#000;color:#fff;}
+    .sidebar-footer{flex-shrink:0;border-top:.5px solid rgba(0,0,0,.15);padding:14px 36px;display:flex;align-items:center;justify-content:center;}
+    .sidebar-all{font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:none;border:none;cursor:pointer;color:#000;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+    .sidebar-all:hover{color:#fff;}
+
+    /* LAYOUT — fill viewport */
+    .contact-wrap{
+      flex:1;
+      display:grid;
+      grid-template-columns:1fr 0.45fr;
+      min-height:0;
+    }
+    .contact-left{
+      padding:28px 40px 24px;
+      display:flex;flex-direction:column;
+      gap:0;
+      min-height:0;
+    }
+    .contact-right{
+      background:#d9d9d9;
+      overflow:hidden;
+    }
+    .contact-right img{width:100%;height:100%;object-fit:cover;display:block;}
+
+    /* TITLE */
+    .contact-title{
+      font-size:26px;font-weight:700;letter-spacing:-.01em;
+      margin-bottom:18px;color:#000;
+    }
+
+    /* FORM */
+    .contact-form{display:flex;flex-direction:column;gap:0;margin-bottom:14px;max-width:560px;}
+    .field{display:flex;flex-direction:column;border-bottom:.5px solid #d0d0d0;padding:8px 0;}
+    .field-label{font-size:10px;color:#a09e9e;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px;}
+    .field-input{background:none;border:none;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;color:#000;outline:none;width:100%;}
+    .field-textarea{background:none;border:none;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;color:#000;outline:none;width:100%;resize:none;height:44px;line-height:1.5;}
+
+    /* SEND BUTTON */
+    .btn-send{
+      align-self:flex-start;margin-top:12px;
+      padding:8px 24px;
+      border:1.5px solid #000;border-radius:999px;
+      font-size:11px;font-weight:700;letter-spacing:.1em;
+      color:#000;background:none;cursor:pointer;
+      transition:background .2s,color .2s;
+      font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+      text-transform:uppercase;
+      display:flex;align-items:center;gap:8px;
+    }
+    .btn-send:hover{background:#000;color:#fff;}
+
+    /* SOCIAL LINKS */
+    .social-links{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+    .btn-pill{
+      padding:7px 18px;
+      border:1px solid #615c5c;border-radius:999px;
+      font-size:11px;font-weight:700;letter-spacing:.08em;
+      color:#615c5c;background:none;cursor:pointer;
+      transition:background .2s,color .2s;
+      font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+      text-transform:uppercase;
+      display:flex;align-items:center;gap:6px;
+      text-decoration:none;
+    }
+    .btn-pill:hover{background:#615c5c;color:#fff;}
+
+    /* FOOTER NAME */
+    .footer-name{
+      margin-top:auto;padding-top:14px;
+      font-size:16px;font-weight:700;letter-spacing:-.01em;color:#000;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <button class="nav-btn" id="navWork">WORK</button>
+    <span style="flex:1;text-align:center;"><a href="about.html" class="nav-link">ABOUT</a></span>
+    <a href="contact.html" class="nav-link active">CONTACT</a>
+  </nav>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+      <div class="sidebar-header"></div>
+      <div class="sidebar-cats">
+        <button class="sidebar-cat" data-cat="graphic-design">Graphic Design</button>
+        <button class="sidebar-cat" data-cat="creative-direction">Creative Direction</button>
+        <button class="sidebar-cat" data-cat="corporate">Corporate</button>
+      </div>
+      <div class="sidebar-footer">
+        <button class="sidebar-all" data-cat="all">ALL</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="contact-wrap">
+    <div class="contact-left">
+      <h1 class="contact-title">Let's Talk</h1>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="field">
+          <label class="field-label">First Name</label>
+          <input class="field-input" type="text" autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label class="field-label">Last Name</label>
+          <input class="field-input" type="text" autocomplete="family-name">
+        </div>
+        <div class="field">
+          <label class="field-label">Email</label>
+          <input class="field-input" type="email" autocomplete="email">
+        </div>
+        <div class="field">
+          <label class="field-label">Message</label>
+          <textarea class="field-textarea" placeholder="Type your message here"></textarea>
+        </div>
+        <button class="btn-send" type="submit" id="btnSend">Send <span>&#8594;</span></button>
+      </form>
+
+      <div class="social-links">
+        <a class="btn-pill" href="https://www.linkedin.com/in/gugadorea" target="_blank" rel="noopener">LinkedIn <span>&#8599;</span></a>
+        <a class="btn-pill" href="https://www.instagram.com/gugadorea" target="_blank" rel="noopener">Instagram <span>&#8599;</span></a>
+        <a class="btn-pill" href="mailto:gugadorea@gmail.com">Portfolio <span>&#8595;</span></a>
+      </div>
+
+      <p class="footer-name">Antonio Augusto D&oacute;rea</p>
+    </div>
+
+    <div class="contact-right">
+      <img src="assets/images/ABRANTES_carroPrancheta 1.jpg" alt="">
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var btn = document.getElementById('btnSend');
+      btn.textContent = 'Sent ✓';
+      btn.style.background = '#000';
+      btn.style.color = '#fff';
+      btn.disabled = true;
+    });
+
+    var navWork = document.getElementById('navWork');
+    var sidebar = document.getElementById('sidebar');
+    var ow=false, os=false;
+    function openSB(){ sidebar.classList.add('is-open'); }
+    function closeSB(){ sidebar.classList.remove('is-open'); }
+    navWork.addEventListener('mouseenter',function(){ ow=true; openSB(); });
+    navWork.addEventListener('mouseleave',function(){ ow=false; setTimeout(function(){ if(!os) closeSB(); },80); });
+    sidebar.addEventListener('mouseenter',function(){ os=true; });
+    sidebar.addEventListener('mouseleave',function(){ os=false; if(!ow) closeSB(); });
+    document.querySelectorAll('[data-cat]').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        window.location.href = 'work.html?cat=' + btn.dataset.cat;
+      });
+    });
+    navWork.addEventListener('click',function(){ window.location.href='work.html'; });
+  </script>
+</body>
+</html>

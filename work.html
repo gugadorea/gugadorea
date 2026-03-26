@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antonio Augusto Dorea</title>
+  <link rel="stylesheet" href="style/global.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{background:#000;margin:0;padding:0;}
+
+    /* HERO */
+    .hero{position:relative;width:100%;height:100vh;overflow:hidden;background:#000;display:flex;flex-direction:column;}
+    .hero-video-wrap{position:absolute;inset:0;z-index:0;pointer-events:none;}
+    .hero-video-wrap iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:177.78vh;height:100vh;min-width:100%;min-height:56.25vw;border:none;}
+    .hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.42);z-index:1;}
+
+    /* NAV — white text, hover pink */
+    .hero-nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:20px 36px;flex-shrink:0;}
+    .hnav-btn{background:none;border:none;cursor:pointer;font-size:17px;font-weight:700;font-stretch:condensed;letter-spacing:.02em;text-transform:uppercase;font-family:'Helvetica Neue Condensed','Arial Narrow','Helvetica Neue',Helvetica,Arial,sans-serif;color:#fff;transition:color .2s;padding:0;}
+    .hnav-link{font-size:17px;font-weight:700;font-stretch:condensed;letter-spacing:.02em;text-transform:uppercase;font-family:'Helvetica Neue Condensed','Arial Narrow','Helvetica Neue',Helvetica,Arial,sans-serif;color:#fff;text-decoration:none;transition:color .2s;}
+    .hnav-btn:hover,.hnav-link:hover{color:#ffaacc;}
+
+    /* CENTER BLOCK — vertically centered in remaining hero space */
+    .hero-body{position:relative;z-index:10;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;}
+    .hero-name{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+    .hero-roles{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,0.7);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+
+    .hero-scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:10;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.45);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;animation:bop 2s infinite;}
+    @keyframes bop{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(5px);}}
+
+    /* SIDEBAR */
+    .sidebar{position:fixed;top:0;left:0;width:34%;height:0;background:#ffaacc;z-index:100;overflow:hidden;transition:height .42s cubic-bezier(.4,0,.2,1);}
+    .sidebar.is-open{height:100%;}
+    .sidebar-inner{width:100%;height:100vh;display:flex;flex-direction:column;}
+    .sidebar-header{flex-shrink:0;padding:20px 36px;height:61px;display:flex;align-items:center;border-bottom:.5px solid rgba(0,0,0,.08);}
+    .sidebar-header-lbl{font-size:17px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+    .sidebar-cats{flex:1;display:flex;flex-direction:column;}
+    .sidebar-cat{flex:1;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;letter-spacing:.04em;background:none;border:none;border-bottom:.5px solid rgba(0,0,0,.1);cursor:pointer;color:#000;transition:background .15s,color .15s;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+    .sidebar-cat:last-child{border-bottom:none;}
+    .sidebar-cat:hover{background:#000;color:#fff;}
+    .sidebar-footer{flex-shrink:0;border-top:.5px solid rgba(0,0,0,.15);padding:18px 36px;display:flex;align-items:center;justify-content:center;}
+    .sidebar-all{font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:none;border:none;cursor:pointer;color:#000;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;transition:color .15s;}
+    .sidebar-all:hover{color:#fff;}
+
+    /* STICKY NAV after hero */
+    .sticky-nav{display:none;position:sticky;top:0;z-index:50;background:#fff;border-bottom:.5px solid #e8e8e8;}
+    .sticky-nav-inner{display:flex;justify-content:space-between;align-items:center;padding:18px 36px;}
+    .snav-btn{background:none;border:none;cursor:pointer;font-size:17px;font-weight:700;font-stretch:condensed;letter-spacing:.02em;text-transform:uppercase;font-family:'Helvetica Neue Condensed','Arial Narrow','Helvetica Neue',Helvetica,Arial,sans-serif;color:#000;transition:color .2s;padding:0;}
+    .snav-btn:hover,.snav-link:hover{color:#ffaacc;}
+    .snav-link{font-size:17px;font-weight:700;font-stretch:condensed;letter-spacing:.02em;text-transform:uppercase;font-family:'Helvetica Neue Condensed','Arial Narrow','Helvetica Neue',Helvetica,Arial,sans-serif;color:#000;text-decoration:none;transition:color .2s;}
+
+    /* PROJECTS */
+    .projects-wrap{background:#fff;}
+    .project-item{display:grid;grid-template-columns:1fr 1fr;border-bottom:.5px solid #e8e8e8;}
+    .project-card-link{position:relative;display:block;background:#d9d9d9;overflow:hidden;aspect-ratio:4/3;text-decoration:none;}
+    .project-card-link img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;}
+    .project-card-link:hover img{transform:scale(1.03);}
+    .project-card-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.28);z-index:1;transition:background .3s;}
+    .project-card-link:hover .project-card-overlay{background:rgba(0,0,0,0.5);}
+    .see-more-btn{position:absolute;top:20px;left:20px;z-index:2;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,0.7);padding:7px 14px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;transition:background .2s,border-color .2s,color .2s;}
+    .project-card-link:hover .see-more-btn{background:#ffaacc;border-color:#ffaacc;color:#000;}
+    .project-info{padding:36px 48px;display:flex;flex-direction:column;justify-content:flex-start;}
+    .project-name{font-size:52px;font-weight:400;letter-spacing:-.025em;line-height:1.02;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;margin-bottom:24px;}
+    .detail-row{display:flex;border-bottom:.5px solid #e8e8e8;padding:8px 0;align-items:baseline;}
+    .detail-row:first-of-type{border-top:.5px solid #e8e8e8;}
+    .detail-label{font-size:12px;color:#a09e9e;width:100px;flex-shrink:0;letter-spacing:.03em;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+    .detail-value{font-size:12px;font-weight:700;color:#615c5c;line-height:1.55;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+    .project-desc{font-size:12px;color:#a09e9e;line-height:1.65;margin-top:16px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+  </style>
+</head>
+<body>
+
+  <div class="hero" id="hero">
+    <div class="hero-video-wrap">
+      <iframe src="https://www.youtube.com/embed/wwndcj5xn_Y?autoplay=1&mute=1&loop=1&playlist=wwndcj5xn_Y&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1" allow="autoplay;encrypted-media" allowfullscreen></iframe>
+    </div>
+    <div class="hero-overlay"></div>
+
+    <nav class="hero-nav">
+      <button class="hnav-btn" id="navWork" style="color:#fff;">WORK</button>
+      <span style="flex:1;text-align:center;"><a href="about.html" class="hnav-link">ABOUT</a></span>
+      <a href="contact.html" class="hnav-link">CONTACT</a>
+    </nav>
+
+    <div class="hero-body">
+      <div class="hero-name">Antonio Augusto D&oacute;rea</div>
+      <div class="hero-roles">Art Direction &nbsp;&middot;&nbsp; Creative Direction &nbsp;&middot;&nbsp; Graphic Design</div>
+    </div>
+
+    <div class="hero-scroll">scroll</div>
+  </div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+      <div class="sidebar-header"><span class="sidebar-header-lbl">WORK</span></div>
+      <div class="sidebar-cats">
+        <button class="sidebar-cat" onclick="filterCat('graphic-design')">Graphic Design</button>
+        <button class="sidebar-cat" onclick="filterCat('creative-direction')">Creative Direction</button>
+        <button class="sidebar-cat" onclick="filterCat('corporate')">Corporate</button>
+      </div>
+      <div class="sidebar-footer">
+        <button class="sidebar-all" onclick="filterCat('all')">ALL</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sticky-nav" id="stickyNav">
+    <div class="sticky-nav-inner">
+      <button class="snav-btn" id="navWork2">WORK</button>
+      <span style="flex:1;text-align:center;"><a href="about.html" class="snav-link">ABOUT</a></span>
+      <a href="contact.html" class="snav-link">CONTACT</a>
+    </div>
+  </div>
+
+  <div class="projects-wrap">
+    <div id="projectsContainer"></div>
+  </div>
+
+  <script>
+    var projects = [
+      {id:1,title:"Marques Pinheiro\nColagem Digital",category:"Creative Direction",cat:"creative-direction",services:"Colagem Digital\nDirecao de Arte",year:"2021",desc:"Serie de colagens digitais explorando tensao visual entre elementos historicos e contemporaneos.",url:"https://www.behance.net/gallery/116704483/Marques-Pinheiro-Colagem-Digital",img:"https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/603502116704483.60672e7635e5f.jpg"},
+      {id:2,title:"MUSHU Delivery\nIdentidade Visual",category:"Graphic Design",cat:"graphic-design",services:"Brand Identity\nGraphic Design",year:"2021",desc:"Identidade visual completa para delivery de comida asiatica. Sistema de marca com tipografia forte e paleta escura.",url:"https://www.behance.net/gallery/116702067/MUSHU-Delivery-Identidade-Visual",img:"https://mir-s3-cdn-cf.behance.net/project_modules/max_632_webp/84747b116702067.606723def34ba.jpg"},
+      {id:3,title:"MORCEGO FX",category:"Graphic Design",cat:"graphic-design",services:"Brand Identity\nModa",year:"2021",desc:"Identidade visual para marca de moda alternativa. Linguagem visual sombria com referencias ao universo underground.",url:"https://www.behance.net/gallery/112223747/MORCEGO-FX",img:"https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/e7f084112223747.60108bc99484d.png"},
+      {id:4,title:"GAME OFFICE\nBrand",category:"Graphic Design",cat:"graphic-design",services:"Brand Identity\nGraphic Design",year:"2021",desc:"Identidade visual para espaco de trabalho voltado ao universo gamer. Marca com personalidade tecnologica.",url:"https://www.behance.net/gallery/111892381/GAME-OFFICE-Brand",img:"https://mir-s3-cdn-cf.behance.net/project_modules/max_632_webp/e9d30d111892381.600a19b14efe9.png"},
+      {id:5,title:"OH MY PIZZA!\nBranding",category:"Graphic Design",cat:"graphic-design",services:"Brand Identity\nIlustracao\nDesign de Produto",year:"2020",desc:"Branding completo para pizzaria com personalidade irreverente. Identidade visual com ilustracoes autorais.",url:"https://www.behance.net/gallery/102795739/OH-MY-PIZZA-Branding",img:"https://mir-s3-cdn-cf.behance.net/project_modules/max_632_webp/7fbcdf102795739.5f3e9373f1326.jpg"},
+      {id:6,title:"Decifra-me ou\nte Devoro",category:"Graphic Design",cat:"graphic-design",services:"Ilustracao\nGraphic Design",year:"2020",desc:"Projeto de ilustracao editorial explorando enigmas visuais e narrativas simbolicas.",url:"https://www.behance.net/gallery/106548545/Decifra-me-ou-te-Devoro",img:"https://mir-s3-cdn-cf.behance.net/project_modules/max_632_webp/cf3d93106548545.5f921c317d40d.png"}
+    ];
+
+    function nl(s){ return s.replace(/\n/g,'<br>'); }
+
+    function createProjectEl(p){
+      var item=document.createElement("div"); item.className="project-item"; item.dataset.cat=p.cat;
+      var link=document.createElement("a"); link.className="project-card-link"; link.href=p.url; link.target="_blank"; link.rel="noopener";
+      link.innerHTML='<img src="'+p.img+'" alt="'+p.id+'"><div class="project-card-overlay"></div><div class="see-more-btn">See More &#8599;</div>';
+      item.appendChild(link);
+      var info=document.createElement("div"); info.className="project-info";
+      info.innerHTML='<h2 class="project-name">'+nl(p.title)+'</h2><div class="detail-row"><span class="detail-label">Category</span><span class="detail-value">'+p.category+'</span></div><div class="detail-row"><span class="detail-label">Services</span><span class="detail-value">'+nl(p.services)+'</span></div><div class="detail-row"><span class="detail-label">Year</span><span class="detail-value">'+p.year+'</span></div><p class="project-desc">'+p.desc+'</p>';
+      item.appendChild(info);
+      return item;
+    }
+
+    function renderProjects(list){
+      var c=document.getElementById("projectsContainer"); c.innerHTML="";
+      list.forEach(function(p){ c.appendChild(createProjectEl(p)); });
+    }
+    projects.reverse();
+    renderProjects(projects);
+
+    function filterCat(cat){
+      closeSB();
+      renderProjects(cat==="all"?projects:projects.filter(function(p){return p.cat===cat;}));
+      window.scrollTo({top:document.getElementById("hero").offsetHeight,behavior:"smooth"});
+    }
+
+    var stickyNav=document.getElementById("stickyNav");
+    window.addEventListener("scroll",function(){
+      var past=window.scrollY>document.getElementById("hero").offsetHeight-80;
+      stickyNav.style.display=past?"block":"none";
+    },{passive:true});
+
+    var sidebar=document.getElementById("sidebar"),ow=false,os=false;
+    function openSB(){sidebar.classList.add("is-open");}
+    function closeSB(){sidebar.classList.remove("is-open");}
+    function attachWork(btn){
+      btn.addEventListener("mouseenter",function(){ow=true;openSB();});
+      btn.addEventListener("mouseleave",function(){ow=false;setTimeout(function(){if(!os)closeSB();},80);});
+    }
+    attachWork(document.getElementById("navWork"));
+    attachWork(document.getElementById("navWork2"));
+    sidebar.addEventListener("mouseenter",function(){os=true;});
+    sidebar.addEventListener("mouseleave",function(){os=false;if(!ow)closeSB();});
+  </script>
+</body>
+</html>
